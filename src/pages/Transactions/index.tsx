@@ -3,6 +3,7 @@ import { Header } from '../../components/Header'
 import { SearchForm } from '../../components/SearchForm';
 import { Summary } from '../../components/Summary';
 import { TransactionsContext } from '../../contexts/TransactionsContext';
+import { dateFormatter, priceFormatter } from '../../utils/formatter';
 import { PriceHighLight, TransactionsContainer, TransactionsTable } from './styles';
 
 interface Transaction {
@@ -27,16 +28,18 @@ const { transactions } = useContext(TransactionsContext);
         <TransactionsTable>
           <tbody>
             {transactions.map( transaction => {
+              
               return (
                 <tr key={transaction.id}>
                   <td width="50%">{transaction.description}</td>
                   <td>
                     <PriceHighLight variant={transaction.type}>
-                      R$ {transaction.price}
+                      {transaction.type === 'outcome' && `- `}
+                      {priceFormatter.format(transaction.price)}
                     </PriceHighLight>
                   </td>
                   <td>{transaction.category}</td>
-                  <td>{transaction.createdAt}</td>
+                  <td>{dateFormatter.format(new Date(transaction.createdAt)) }</td>
                </tr>
               )
             })
