@@ -7,6 +7,12 @@ import { SummaryCard, SummaryContainer } from './styles';
 
 export function Summary() {
   const summary = useSummary();
+  let color;
+   if(summary.total >= 0) {
+    color ='green'
+  } else {
+    color = 'red'
+  }
 
   return (
     <SummaryContainer>
@@ -28,7 +34,7 @@ export function Summary() {
         <strong>{ priceFormatter.format(summary.outcome) }</strong>
       </SummaryCard>
 
-      <SummaryCard variant='green'>
+      <SummaryCard variant={color}>
         <header>
           <span>Total</span>
           <CurrencyDollar size={32} color="#FFF" /> 
