@@ -15,6 +15,22 @@
       "category": "Comida",
       "price": 50,
       "createdAt": "2023-03-23T21:08:24.497Z"
+    },
+    {
+      "description": "desenvolvimento de app",
+      "price": 10000,
+      "type": "income",
+      "category": "venda",
+      "createdAt": "2023-04-14T19:44:54.819Z",
+      "id": 3
+    },
+    {
+      "description": "teste",
+      "price": 3000,
+      "type": "income",
+      "category": "teste de app",
+      "createdAt": "2023-04-14T20:27:20.194Z",
+      "id": 4
     }
   ]
 }
