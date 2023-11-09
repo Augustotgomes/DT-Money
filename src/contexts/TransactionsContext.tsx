@@ -33,8 +33,7 @@ export const TransactionsContext = createContext({} as TransactionContextType)
 export function TransactionsProvider({ children }: TransactionsProviderProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([])
 
-  const fetchTransactions = useCallback(
-    async (query?: string) => {
+  const fetchTransactions = useCallback(async (query?: string) => {
     const response = await api.get('/transactions', {
       params: {
         _sort: 'createdAt',
@@ -48,10 +47,12 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
 
   const deleteTransaction = useCallback(
     async (id: Number) => {
-      const response = await api.delete(`/transactions/${id}`, )
-  
+      await api.delete(`/transactions/${id}`)
+
       fetchTransactions()
-    }, [])
+    },
+    [fetchTransactions],
+  )
 
   const createTransaction = useCallback(
     async (data: CreateTransactionInput) => {
