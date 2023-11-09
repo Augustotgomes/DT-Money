@@ -21,6 +21,7 @@ interface TransactionContextType {
   transactions: Transaction[]
   fetchTransactions: (query?: string) => Promise<void>
   createTransaction: (data: CreateTransactionInput) => Promise<void>
+  deleteTransaction: (id: Number) => Promise<void>
 }
 
 interface TransactionsProviderProps {
@@ -32,7 +33,8 @@ export const TransactionsContext = createContext({} as TransactionContextType)
 export function TransactionsProvider({ children }: TransactionsProviderProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([])
 
-  const fetchTransactions = useCallback(async (query?: string) => {
+  const fetchTransactions = useCallback(
+    async (query?: string) => {
     const response = await api.get('/transactions', {
       params: {
         _sort: 'createdAt',
@@ -43,6 +45,13 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
 
     setTransactions(response.data)
   }, [])
+
+  const deleteTransaction = useCallback(
+    async (id: Number) => {
+      const response = await api.delete(`/transactions/${id}`, )
+  
+      fetchTransactions()
+    }, [])
 
   const createTransaction = useCallback(
     async (data: CreateTransactionInput) => {
@@ -71,6 +80,7 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
         transactions,
         fetchTransactions,
         createTransaction,
+        deleteTransaction,
       }}
     >
       {children}
